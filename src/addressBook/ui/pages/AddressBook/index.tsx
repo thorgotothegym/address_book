@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import useFindCountries from "../../../infraestruture/hooks/queries/useFindCountries";
 import Country from "../../../domain/entities/Country";
+import { styles } from "./styles";
 
 export enum SearchType {
   MANUAL = "manual",
@@ -19,44 +20,53 @@ export enum SearchType {
 
 export const AddressBook = (): JSX.Element => {
   const { data } = useFindCountries();
-  const [typeOfSearch, setTypeOfSearch] = useState<string>("");
+
+  const [value, setValue] = useState<string>("postCode");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
+    setValue((event.target as HTMLInputElement).value);
+  };
 
   return (
-    <Box sx={{}}>
+    <Box sx={{ backgroundColor: "#f6f5ea" }}>
       <Grid container spacing={2} p={2}>
         <Grid item md={6}>
-          <Typography>
-            There are no addresses, but you can <Typography>search</Typography>{" "}
-            by zip code or by entering the address manually
-          </Typography>
+          <Box sx={styles.box}>
+            <Typography>
+              There are no addresses, but you can search by zip code or by
+              entering the address manually
+            </Typography>
+          </Box>
         </Grid>
+
         <Grid item md={6}>
-          <Box>
+          <Box sx={styles.box}>
             <FormControl>
-              <FormLabel id="selectTypeOfSearch">Please select:</FormLabel>
+              <FormLabel id="id-controlled-radio-buttons-group">
+                Select
+              </FormLabel>
               <RadioGroup
+                aria-labelledby="id-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
                 row
-                aria-labelledby="selectTypeOfSearch"
-                defaultValue="postCode"
-                name="selectTypeOfSearch-buttons-group"
-                onChange={(event, value) => {
-                  setTypeOfSearch(value);
-                }}
+                value={value}
+                onChange={handleChange}
               >
+                <FormControlLabel
+                  value="postCode"
+                  control={<Radio />}
+                  label="Post Code"
+                />
                 <FormControlLabel
                   value="manual"
                   control={<Radio />}
                   label="Manual"
                 />
-                <FormControlLabel
-                  value="postalCode"
-                  control={<Radio />}
-                  label="Post Code"
-                />
               </RadioGroup>
             </FormControl>
-            {typeOfSearch === "manual" && <>manual</>}
-            {typeOfSearch === "postalCode" && <>postCode</>}
+            {value === "manual" ? <>manual</> : null}
+            {value === "postCode" ? <>postCode</> : null}
           </Box>
         </Grid>
       </Grid>
