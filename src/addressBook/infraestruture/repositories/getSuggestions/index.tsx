@@ -7,7 +7,7 @@ const getSuggestions = async (term: string): Promise<Suggestions[]> => {
     `https://api.getAddress.io/autocomplete/${term}?api-key=q-ppSArltkKZy8Ou6XQl6g35976`
   );
 
-  return data.map(restoreSuggestions);
+  return data.suggestions.map(restoreSuggestions);
 };
 
 export default getSuggestions;
