@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const api: AxiosInstance = axios.create({
-  baseURL: "https://api.v2.emissions-api.org/api/v2/",
+  baseURL: "",
   headers: {
     "Content-Type": "application/json",
   },
