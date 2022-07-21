@@ -1,9 +1,10 @@
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { CommonQueryKeys } from "../queryKeys";
 import Suggestions from "../../../../domain/entities/Suggestions";
 import findSuggestions from "../../../../domain/useCases/findSuggestions";
 
 const useFindSuggestions = (term: string) => {
+  const queryClient = useQueryClient();
   const query = useQuery<Suggestions[] | undefined, Error>(
     [CommonQueryKeys.SUGGESTIONS],
     () => {
@@ -11,6 +12,14 @@ const useFindSuggestions = (term: string) => {
     },
     {
       initialData: undefined,
+      retry: true,
+      onError: () => {
+        console.log("error");
+      },
+      onSuccess: () => {
+        console.log("Data has been updated");
+        queryClient.invalidateQueries([CommonQueryKeys.SUGGESTIONS, query]);
+      },
     }
   );
 
