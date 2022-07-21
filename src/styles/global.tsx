@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
   font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #666;
+    color: rgb(52, 58, 64);
     font-size: 22px;
     line-height: 150%;
     font-weight: 400;
