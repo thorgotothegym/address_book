@@ -16,7 +16,6 @@ import useFindCountries from "../../../infraestruture/hooks/queries/useFindCount
 import useFindSuggestions from "../../../infraestruture/hooks/queries/useFindSuggestions";
 import Country from "../../../domain/entities/Country";
 import { styles } from "./styles";
-import { PostCode } from "../../components/PostCode";
 import { Alert } from "../../components/Alert";
 import Suggestions from "../../../domain/entities/Suggestions";
 
