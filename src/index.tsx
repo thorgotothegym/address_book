@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";
-import "./index.css";
-import App from "./App";
-
+import { ThemeProvider } from "@mui/material/styles";
 import { Layout } from "./addressBook/ui/pages/Layout";
 import reportWebVitals from "./reportWebVitals";
+import { theme } from "./styles/global";
 
 const queryClient = new QueryClient();
 
@@ -15,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Layout />
+      <ThemeProvider theme={theme}>
+        <Layout />
+      </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );
