@@ -3,7 +3,6 @@ import {
   Box,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Grid,
   Radio,
   RadioGroup,
@@ -12,9 +11,7 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-import useFindCountries from "../../../infraestruture/hooks/queries/useFindCountries";
 import useFindSuggestions from "../../../infraestruture/hooks/queries/useFindSuggestions";
-import Country from "../../../domain/entities/Country";
 import { styles } from "./styles";
 import { Alert } from "../../components/Alert";
 import Suggestions from "../../../domain/entities/Suggestions";
@@ -41,7 +38,6 @@ export const AddressBook = (): JSX.Element => {
 
   const [values, setValues] = useState<any>();
 
-  const { data } = useFindCountries();
   const {
     data: suggestion,
     status,
@@ -64,8 +60,7 @@ export const AddressBook = (): JSX.Element => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "#f6f5ea" }}>
-      {JSON.stringify(selectedAddress)}
+    <Box sx={styles.mainBox}>
       <Grid container spacing={2} p={2}>
         <Grid item lg={6}>
           <Box sx={styles.box}>
