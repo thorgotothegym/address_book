@@ -1,0 +1,40 @@
+export const styles = {
+  formGroup: {
+    marginBottom: "1rem",
+  },
+  input: {
+    height: "42px",
+    lineHeight: "42px",
+    padding: "0 0 5px 0",
+    borderRadius: "21px",
+    display: "block",
+    boxShadow: "none",
+    background: "#fff",
+    border: "1px solid #c8c8c8",
+    fontSize: "1rem",
+    fontWeight: "500",
+    width: "100%",
+  },
+  label: {
+    fontSize: "1rem",
+    fontWeight: "500",
+    display: "block",
+    margin: "0 0 5px 15p",
+  },
+  button: {
+    textTransform: "uppercase",
+    padding: "0 15px",
+    height: "42px",
+    lineHeight: "42px",
+    borderRadius: "21px",
+    textAlign: "center",
+    minWidth: "213px",
+    background: "#343a40",
+    borderColor: "#343a40",
+    fontWeight: "500",
+    color: "#fff",
+    "&:hover": {
+      transform: "scale(1.05)",
+    },
+  },
+};

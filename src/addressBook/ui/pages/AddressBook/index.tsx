@@ -18,26 +18,19 @@ import Country from "../../../domain/entities/Country";
 import { styles } from "./styles";
 import { Alert } from "../../components/Alert";
 import Suggestions from "../../../domain/entities/Suggestions";
+import { Address } from "../../components/Address";
+import { AddressProps } from "../../models/Address";
 
 export enum SearchType {
   MANUAL = "manual",
   POSTALCODE = "postalCode",
 }
 
-export type Address = {
-  line1: string;
-  line2: string;
-  line3: string;
-  town: string;
-  postcode: string;
-  country: string;
-};
-
 export const AddressBook = (): JSX.Element => {
   const [value, setValue] = useState<string>("postCode");
   const [term, setTerm] = useState<string>("");
 
-  const [selectedAddress, setSelectedAddress] = useState<Address>({
+  const [selectedAddress, setSelectedAddress] = useState<AddressProps>({
     country: "",
     line1: "",
     line2: "",
@@ -74,7 +67,7 @@ export const AddressBook = (): JSX.Element => {
     <Box sx={{ backgroundColor: "#f6f5ea" }}>
       {JSON.stringify(selectedAddress)}
       <Grid container spacing={2} p={2}>
-        <Grid item md={6}>
+        <Grid item lg={6}>
           <Box sx={styles.box}>
             <Typography>
               There are no addresses, but you can search by zip code or by
@@ -83,12 +76,9 @@ export const AddressBook = (): JSX.Element => {
           </Box>
         </Grid>
 
-        <Grid item md={6}>
+        <Grid item lg={6}>
           <Box sx={styles.box}>
             <FormControl>
-              <FormLabel id="id-controlled-radio-buttons-group">
-                Select
-              </FormLabel>
               <RadioGroup
                 aria-labelledby="id-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
@@ -108,69 +98,65 @@ export const AddressBook = (): JSX.Element => {
                 />
               </RadioGroup>
             </FormControl>
-            <Box>
-              <Grid container>
-                <Grid xl={12}>
-                  {value === "manual" ? <>manual</> : null}
-                  {value === "postCode" ? (
+            {value === "manual" ? (
+              <>
+                <Address />
+              </>
+            ) : null}
+            {value === "postCode" ? (
+              <>
+                <Input
+                  sx={{ width: "100%" }}
+                  onChange={(event) => {
+                    setTerm(event.target.value);
+                  }}
+                  value={values}
+                />
+                <Box sx={{ width: "100%", paddingTop: "50px" }}>
+                  {status === "loading" ? (
+                    <Alert severity="info" message="Loading" />
+                  ) : status === "error" ? (
+                    <Alert severity="error" message={error.message} />
+                  ) : (
                     <>
-                      <Input
-                        sx={{ width: "100%" }}
-                        onChange={(event) => {
-                          setTerm(event.target.value);
-                        }}
-                        value={values}
-                      />
-                      <Box sx={{ width: "100%", paddingTop: "50px" }}>
-                        {status === "loading" ? (
-                          <Alert severity="info" message="Loading" />
-                        ) : status === "error" ? (
-                          <Alert severity="error" message={error.message} />
-                        ) : (
-                          <>
-                            {isFetching ? (
-                              <>
-                                <Alert severity="info" message="Fetching..." />
-                              </>
-                            ) : (
-                              <>
-                                {suggestion?.map(
-                                  ({ address }: Suggestions, key) => {
-                                    return (
-                                      <Box key={key}>
-                                        <ListItemButton component="a">
-                                          <ListItemText
-                                            onClick={() => {
-                                              handleSelection(address);
-                                            }}
-                                            secondary={
-                                              <React.Fragment>
-                                                <Typography
-                                                  sx={{ display: "inline" }}
-                                                  component="span"
-                                                  variant="body2"
-                                                  color="text.primary"
-                                                >
-                                                  {address}
-                                                </Typography>
-                                              </React.Fragment>
-                                            }
-                                          />
-                                        </ListItemButton>
-                                      </Box>
-                                    );
-                                  }
-                                )}
-                              </>
-                            )}
-                          </>
-                        )}
-                      </Box>
+                      {isFetching ? (
+                        <>
+                          <Alert severity="info" message="Fetching..." />
+                        </>
+                      ) : (
+                        <>
+                          {suggestion?.map(({ address }: Suggestions, key) => {
+                            return (
+                              <Box key={key}>
+                                <ListItemButton component="a">
+                                  <ListItemText
+                                    onClick={() => {
+                                      handleSelection(address);
+                                    }}
+                                    secondary={
+                                      <React.Fragment>
+                                        <Typography
+                                          sx={{ display: "inline" }}
+                                          component="span"
+                                          variant="body2"
+                                          color="text.primary"
+                                        >
+                                          {address}
+                                        </Typography>
+                                      </React.Fragment>
+                                    }
+                                  />
+                                </ListItemButton>
+                              </Box>
+                            );
+                          })}
+                        </>
+                      )}
                     </>
-                  ) : null}
-                </Grid>
-              </Grid>
-            </Box>
+                  )}
+                </Box>
+              </>
+            ) : null}
           </Box>
         </Grid>
       </Grid>
