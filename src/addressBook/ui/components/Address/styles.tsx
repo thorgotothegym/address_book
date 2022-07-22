@@ -1,6 +1,13 @@
 export const styles = {
   formGroup: {
     marginBottom: "1rem",
+    error: {
+      margin: "5px 0 0 10px",
+      display: "inline-block",
+      padding: "5px",
+      border: "1px solid #ff4c50",
+      color: "#ff4c50",
+    },
   },
   input: {
     height: "42px",
