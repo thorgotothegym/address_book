@@ -169,7 +169,8 @@ export const Address = (): JSX.Element => {
         {errorPostCode ? (
           <span style={styles.formGroup.error}>
             <Typography variant="subtitle1">
-              The Postal Code does not comply with the UK format
+              The Postal Code does not comply with the UK forma. Example: SW99
+              AE
             </Typography>
           </span>
         ) : null}

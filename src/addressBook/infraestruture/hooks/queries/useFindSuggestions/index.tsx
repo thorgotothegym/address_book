@@ -14,10 +14,9 @@ const useFindSuggestions = (term: string) => {
       initialData: undefined,
       retry: true,
       onError: () => {
-        console.log("error");
+        console.log("An error has occurred, please try again");
       },
       onSuccess: () => {
-        console.log("Data has been updated");
         queryClient.invalidateQueries([CommonQueryKeys.SUGGESTIONS, query]);
       },
     }

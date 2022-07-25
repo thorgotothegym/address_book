@@ -12,7 +12,7 @@ const queryClient = new QueryClient({
     queries: {
       keepPreviousData: true,
       onError: () => {
-        console.log("error");
+        console.log("An error has occurred, please try again");
       },
     },
   },

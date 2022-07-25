@@ -58,7 +58,6 @@ export const AddressBook = (): JSX.Element => {
   } = useFindSuggestions(term);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     setValue((event.target as HTMLInputElement).value);
   };
 

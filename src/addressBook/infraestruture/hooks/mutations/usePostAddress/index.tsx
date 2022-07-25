@@ -10,7 +10,7 @@ export default function usePostAddress() {
       postAddress({ country, id, line1, line2, line3, postcode, town }),
     {
       onSuccess: () => {
-        console.log("se ha creado un nuevo address");
+        alert("A new address has been added");
         queryClient.invalidateQueries([CommonQueryKeys.ADDRESS]);
       },
     }
