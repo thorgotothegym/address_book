@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { Typography, Button } from "@mui/material";
 import { AddressProps } from "../../models/Address";
-import { v4 as uuidv4 } from "uuid";
 import { styles } from "./styles";
 import useFindCountries from "../../../infraestruture/hooks/queries/useFindCountries";
 import usePostAddress from "../../../infraestruture/hooks/mutations/usePostAddress";
 import Country from "../../../domain/entities/Country";
 import { ValidatePostCodeUK } from "./helper";
 
-const uuid = uuidv4(); // SW99AE
 export const Address = (): JSX.Element => {
   const { data: countries } = useFindCountries();
   const createAddress = usePostAddress();

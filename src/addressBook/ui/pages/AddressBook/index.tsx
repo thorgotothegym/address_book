@@ -12,7 +12,6 @@ import {
   ListItemText,
   Button,
 } from "@mui/material";
-import { v4 as uuidv4 } from "uuid";
 import useFindSuggestions from "../../../infraestruture/hooks/queries/useFindSuggestions";
 import useFindAddress from "../../../infraestruture/hooks/queries/useFindAddress";
 import usePostAddress from "../../../infraestruture/hooks/mutations/usePostAddress"; // usePostAddress
@@ -29,7 +28,6 @@ export enum SearchType {
 }
 
 export const AddressBook = (): JSX.Element => {
-  const uuid = uuidv4(); // SW99AE
   const [value, setValue] = useState<string>("postCode");
   const [term, setTerm] = useState<string>("");
 
