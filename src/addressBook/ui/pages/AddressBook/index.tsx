@@ -42,7 +42,6 @@ export const AddressBook = (): JSX.Element => {
     line3: "",
     postcode: "",
     town: "",
-    id: uuid,
   });
 
   const [values, setValues] = useState<any>();
@@ -70,11 +69,9 @@ export const AddressBook = (): JSX.Element => {
     setSelectedAddress({ ...selectedAddress, ...obj });
     createAddress.mutate({
       country: selectedAddress.country,
-      id: selectedAddress.id,
       line1: selectedAddress.line1,
       line2: selectedAddress.line2,
       line3: selectedAddress.line3,
-      postcode: selectedAddress.postcode,
       town: selectedAddress.town,
     });
     addressRefetch();
@@ -99,17 +96,12 @@ export const AddressBook = (): JSX.Element => {
             ) : (
               <>
                 {address?.map(
-                  ({
-                    country,
-                    id,
-                    line1,
-                    line2,
-                    line3,
-                    postcode,
-                    town,
-                  }: Address) => {
+                  (
+                    { country, line1, line2, line3, postcode, town }: Address,
+                    key
+                  ) => {
                     return (
-                      <Box key={id}>
+                      <Box key={key.toString()}>
                         <ListItemButton component="li">
                           <ListItemText
                             secondary={
@@ -120,17 +112,36 @@ export const AddressBook = (): JSX.Element => {
                                   variant="body2"
                                   color="text.primary"
                                 >
-                                  <strong>Line 1</strong>:{" "}
-                                  {line1 ? line1 : null},{" "}
-                                  <strong>Line 2</strong>:{" "}
-                                  {line2 ? line2 : null},{" "}
-                                  <strong>Line 3</strong>:{" "}
-                                  {line3 ? line3 : null},{" "}
-                                  <strong>PostCode</strong>:{" "}
-                                  {postcode ? postcode : null},{" "}
-                                  <strong>Town</strong>: {town ? town : null},{" "}
-                                  <strong>Country</strong>:{" "}
-                                  {country ? country : null}
+                                  {line1 ? (
+                                    <span>
+                                      <strong> Line1</strong>: {line1}
+                                    </span>
+                                  ) : null}
+                                  {line2 ? (
+                                    <span>
+                                      <strong> Line2</strong>: {line2}
+                                    </span>
+                                  ) : null}
+                                  {line3 ? (
+                                    <span>
+                                      <strong> Line3</strong>: {line3}
+                                    </span>
+                                  ) : null}
+                                  {postcode ? (
+                                    <span>
+                                      <strong> Postcode</strong>: {postcode}
+                                    </span>
+                                  ) : null}
+                                  {town ? (
+                                    <span>
+                                      <strong> Town</strong>: {town}
+                                    </span>
+                                  ) : null}
+                                  {country ? (
+                                    <span>
+                                      <strong> Country</strong>: {country}
+                                    </span>
+                                  ) : null}
                                 </Typography>
                               </React.Fragment>
                             }

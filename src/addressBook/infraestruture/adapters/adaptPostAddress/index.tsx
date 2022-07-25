@@ -2,7 +2,6 @@ import Address from "../../../domain/entities/Address";
 
 export const adaptPostAddress = ({
   country,
-  id,
   line1,
   line2,
   line3,
@@ -11,7 +10,6 @@ export const adaptPostAddress = ({
 }: Address) => {
   return new Address({
     country,
-    id,
     line1,
     line2,
     line3,

@@ -19,7 +19,6 @@ export const Address = (): JSX.Element => {
     line3: "",
     postcode: "",
     town: "",
-    id: uuid,
   });
   const [showError, setShowError] = useState<boolean>(false);
   const stringError: string = "This field is required.";
@@ -33,7 +32,6 @@ export const Address = (): JSX.Element => {
       line3: form.line3,
       postcode: form.postcode,
       town: form.town,
-      id: uuid,
     });
   };
 

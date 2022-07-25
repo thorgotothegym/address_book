@@ -1,7 +1,8 @@
-import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
+import { Box, Grid } from "@mui/material";
 
 import logo from "../../../../assets/logo.svg";
+import { styles } from "./styles";
 
 export const CustomHeader = (): JSX.Element => {
   return (
@@ -9,7 +10,7 @@ export const CustomHeader = (): JSX.Element => {
       <Box>
         <Grid container spacing={2} p={2}>
           <Grid item xl={12}>
-            <img src={logo} alt="logo" />
+            <img style={styles.image} src={logo} alt="logo" />
           </Grid>
         </Grid>
       </Box>

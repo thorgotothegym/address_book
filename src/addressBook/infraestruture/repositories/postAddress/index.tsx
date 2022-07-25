@@ -4,7 +4,6 @@ import { adaptPostAddress } from "../../adapters/adaptPostAddress";
 
 export async function postAddress({
   country,
-  id,
   line1,
   line2,
   line3,
@@ -15,7 +14,6 @@ export async function postAddress({
     `http://localhost:3004/address`,
     adaptPostAddress({
       country,
-      id,
       line1,
       line2,
       line3,
