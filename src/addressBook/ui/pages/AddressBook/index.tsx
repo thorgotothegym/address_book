@@ -12,8 +12,10 @@ import {
   ListItemText,
   Button,
 } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
 import useFindSuggestions from "../../../infraestruture/hooks/queries/useFindSuggestions";
 import useFindAddress from "../../../infraestruture/hooks/queries/useFindAddress";
+import usePostAddress from "../../../infraestruture/hooks/mutations/usePostAddress"; // usePostAddress
 import { styles } from "./styles";
 import { Alert } from "../../components/Alert";
 import Suggestions from "../../../domain/entities/Suggestions";
@@ -27,8 +29,11 @@ export enum SearchType {
 }
 
 export const AddressBook = (): JSX.Element => {
+  const uuid = uuidv4(); // SW99AE
   const [value, setValue] = useState<string>("postCode");
   const [term, setTerm] = useState<string>("");
+
+  const createAddress = usePostAddress();
 
   const [selectedAddress, setSelectedAddress] = useState<AddressProps>({
     country: "",
@@ -37,11 +42,12 @@ export const AddressBook = (): JSX.Element => {
     line3: "",
     postcode: "",
     town: "",
+    id: uuid,
   });
 
   const [values, setValues] = useState<any>();
 
-  const { data: address } = useFindAddress();
+  const { data: address, refetch: addressRefetch } = useFindAddress();
 
   const {
     data: suggestion,
@@ -63,6 +69,16 @@ export const AddressBook = (): JSX.Element => {
     Object.keys(obj).map((value, key) => (obj[value] = match[key]));
 
     setSelectedAddress({ ...selectedAddress, ...obj });
+    createAddress.mutate({
+      country: selectedAddress.country,
+      id: selectedAddress.id,
+      line1: selectedAddress.line1,
+      line2: selectedAddress.line2,
+      line3: selectedAddress.line3,
+      postcode: selectedAddress.postcode,
+      town: selectedAddress.town,
+    });
+    addressRefetch();
   };
 
   const handlePostCode = () => {
