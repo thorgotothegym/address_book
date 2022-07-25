@@ -22,11 +22,6 @@ import { Address as AddressForm } from "../../components/Address";
 import { AddressProps } from "../../models/Address";
 import Address from "../../../domain/entities/Address";
 
-export enum SearchType {
-  MANUAL = "manual",
-  POSTALCODE = "postalCode",
-}
-
 export const AddressBook = (): JSX.Element => {
   const [value, setValue] = useState<string>("postCode");
   const [term, setTerm] = useState<string>("");
