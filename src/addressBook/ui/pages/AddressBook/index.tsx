@@ -75,7 +75,7 @@ export const AddressBook = (): JSX.Element => {
   };
 
   return (
-    <Box sx={styles.mainBox}>
+    <Box sx={styles.mainBox} data-testid="AddressBook">
       <Grid container spacing={2} p={2}>
         <Grid item lg={6}>
           <Box sx={styles.box}>
