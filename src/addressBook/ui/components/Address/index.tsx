@@ -207,6 +207,7 @@ export const Address = (): JSX.Element => {
         sx={styles.button}
         variant="contained"
         color="primary"
+        data-testid="buttonSave"
       >
         save
       </Button>
