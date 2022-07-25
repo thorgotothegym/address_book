@@ -162,10 +162,12 @@ export const AddressBook = (): JSX.Element => {
                 <FormControlLabel
                   value="postCode"
                   control={<Radio />}
+                  data-testid="selectPostCode"
                   label="Post Code"
                 />
                 <FormControlLabel
                   value="manual"
+                  data-testid="selectManual"
                   control={<Radio />}
                   label="Manual"
                 />
