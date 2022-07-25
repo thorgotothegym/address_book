@@ -7,9 +7,5 @@ interface IAlert {
 }
 
 export const Alert = ({ severity, message }: IAlert): JSX.Element => {
-  return (
-    <>
-      <MUIAlert severity={severity}>{message}</MUIAlert>
-    </>
-  );
+  return <MUIAlert severity={severity}>{message}</MUIAlert>;
 };
