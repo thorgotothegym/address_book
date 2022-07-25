@@ -13,11 +13,13 @@ import {
   Button,
 } from "@mui/material";
 import useFindSuggestions from "../../../infraestruture/hooks/queries/useFindSuggestions";
+import useFindAddress from "../../../infraestruture/hooks/queries/useFindAddress";
 import { styles } from "./styles";
 import { Alert } from "../../components/Alert";
 import Suggestions from "../../../domain/entities/Suggestions";
-import { Address } from "../../components/Address";
+import { Address as AddressForm } from "../../components/Address";
 import { AddressProps } from "../../models/Address";
+import Address from "../../../domain/entities/Address";
 
 export enum SearchType {
   MANUAL = "manual",
@@ -38,6 +40,8 @@ export const AddressBook = (): JSX.Element => {
   });
 
   const [values, setValues] = useState<any>();
+
+  const { data: address } = useFindAddress();
 
   const {
     data: suggestion,
@@ -70,10 +74,59 @@ export const AddressBook = (): JSX.Element => {
       <Grid container spacing={2} p={2}>
         <Grid item lg={6}>
           <Box sx={styles.box}>
-            <Typography>
-              There are no addresses, but you can search by Post Code or by
-              entering the address manually
-            </Typography>
+            {address?.length === 0 ? (
+              <>
+                <Typography>
+                  There are no addresses, but you can search by Post Code or by
+                  entering the address manually
+                </Typography>
+              </>
+            ) : (
+              <>
+                {address?.map(
+                  ({
+                    country,
+                    id,
+                    line1,
+                    line2,
+                    line3,
+                    postcode,
+                    town,
+                  }: Address) => {
+                    return (
+                      <Box key={id}>
+                        <ListItemButton component="li">
+                          <ListItemText
+                            secondary={
+                              <React.Fragment>
+                                <Typography
+                                  sx={{ display: "block" }}
+                                  component="p"
+                                  variant="body2"
+                                  color="text.primary"
+                                >
+                                  <strong>Line 1</strong>:{" "}
+                                  {line1 ? line1 : null},{" "}
+                                  <strong>Line 2</strong>:{" "}
+                                  {line2 ? line2 : null},{" "}
+                                  <strong>Line 3</strong>:{" "}
+                                  {line3 ? line3 : null},{" "}
+                                  <strong>PostCode</strong>:{" "}
+                                  {postcode ? postcode : null},{" "}
+                                  <strong>Town</strong>: {town ? town : null},{" "}
+                                  <strong>Country</strong>:{" "}
+                                  {country ? country : null}
+                                </Typography>
+                              </React.Fragment>
+                            }
+                          />
+                        </ListItemButton>
+                      </Box>
+                    );
+                  }
+                )}
+              </>
+            )}
           </Box>
         </Grid>
 
@@ -101,7 +154,7 @@ export const AddressBook = (): JSX.Element => {
             </FormControl>
             {value === "manual" ? (
               <>
-                <Address />
+                <AddressForm />
               </>
             ) : null}
             {value === "postCode" ? (
@@ -131,11 +184,13 @@ export const AddressBook = (): JSX.Element => {
                           {suggestion?.map(({ address }: Suggestions, key) => {
                             return (
                               <Box key={key}>
-                                <ListItemButton component="a">
+                                <ListItemButton
+                                  component="li"
+                                  onClick={() => {
+                                    handleSelection(address);
+                                  }}
+                                >
                                   <ListItemText
-                                    onClick={() => {
-                                      handleSelection(address);
-                                    }}
                                     secondary={
                                       <React.Fragment>
                                         <Typography

@@ -1,5 +1,5 @@
-import getCountries from "../../../infraestruture/repositories/getCountries";
+import getAddress from "../../../infraestruture/repositories/getAddress";
 
 export default async function findAddress() {
-  return await getCountries();
+  return await getAddress();
 }
