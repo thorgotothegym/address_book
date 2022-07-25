@@ -5,4 +5,5 @@ export interface AddressProps {
   town: string;
   postcode: string;
   country: string;
+  id?: string;
 }
