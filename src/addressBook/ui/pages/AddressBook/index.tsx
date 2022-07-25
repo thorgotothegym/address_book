@@ -10,6 +10,7 @@ import {
   Input,
   ListItemButton,
   ListItemText,
+  Button,
 } from "@mui/material";
 import useFindSuggestions from "../../../infraestruture/hooks/queries/useFindSuggestions";
 import { styles } from "./styles";
@@ -43,6 +44,7 @@ export const AddressBook = (): JSX.Element => {
     status,
     isFetching,
     error,
+    refetch,
   } = useFindSuggestions(term);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,13 +61,17 @@ export const AddressBook = (): JSX.Element => {
     setSelectedAddress({ ...selectedAddress, ...obj });
   };
 
+  const handlePostCode = () => {
+    refetch();
+  };
+
   return (
     <Box sx={styles.mainBox}>
       <Grid container spacing={2} p={2}>
         <Grid item lg={6}>
           <Box sx={styles.box}>
             <Typography>
-              There are no addresses, but you can search by zip code or by
+              There are no addresses, but you can search by Post Code or by
               entering the address manually
             </Typography>
           </Box>
@@ -100,14 +106,16 @@ export const AddressBook = (): JSX.Element => {
             ) : null}
             {value === "postCode" ? (
               <>
-                <Input
-                  sx={{ width: "100%" }}
-                  onChange={(event) => {
-                    setTerm(event.target.value);
-                  }}
-                  value={values}
-                />
-                <Box sx={{ width: "100%", paddingTop: "50px" }}>
+                <Box>
+                  <Input
+                    sx={{ width: "100%" }}
+                    onChange={(event) => {
+                      setTerm(event.target.value);
+                    }}
+                    value={values}
+                  />
+                </Box>
+                <Box sx={styles.boxResult}>
                   {status === "loading" ? (
                     <Alert severity="info" message="Loading" />
                   ) : status === "error" ? (
@@ -149,6 +157,16 @@ export const AddressBook = (): JSX.Element => {
                       )}
                     </>
                   )}
+                  <Box sx={styles.boxButton}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      sx={styles.button}
+                      onClick={() => handlePostCode()}
+                    >
+                      Search
+                    </Button>
+                  </Box>
                 </Box>
               </>
             ) : null}
