@@ -4,12 +4,14 @@ import { AddressProps } from "../../models/Address";
 import { v4 as uuidv4 } from "uuid";
 import { styles } from "./styles";
 import useFindCountries from "../../../infraestruture/hooks/queries/useFindCountries";
+import usePostAddress from "../../../infraestruture/hooks/mutations/usePostAddress";
 import Country from "../../../domain/entities/Country";
 import { ValidatePostCodeUK } from "./helper";
 
 const uuid = uuidv4(); // SW99AE
 export const Address = (): JSX.Element => {
   const { data: countries } = useFindCountries();
+  const createAddress = usePostAddress();
   const [form, setForm] = useState<AddressProps>({
     country: "",
     line1: "",
@@ -24,7 +26,15 @@ export const Address = (): JSX.Element => {
   const [errorPostCode, setErrorPostCode] = useState<boolean>(false);
   const onHandleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("form", form);
+    createAddress.mutate({
+      country: form.country,
+      line1: form.line1,
+      line2: form.line2,
+      line3: form.line3,
+      postcode: form.postcode,
+      town: form.town,
+      id: uuid,
+    });
   };
 
   return (

@@ -117,7 +117,7 @@ export const AddressBook = (): JSX.Element => {
                               <React.Fragment>
                                 <Typography
                                   sx={{ display: "block" }}
-                                  component="p"
+                                  component="span"
                                   variant="body2"
                                   color="text.primary"
                                 >
